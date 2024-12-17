@@ -1,0 +1,61 @@
+{
+    "name": "laragear/capstone",
+    "description": "Limit the number of model records by amount or date.",
+    "type": "library",
+    "license": "MIT",
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "authors": [
+        {
+            "name": "Italo Baeza C.",
+            "email": "DarkGhostHunter@Gmail.com",
+            "homepage": "https://github.com/DarkGhostHunter"
+        }
+    ],
+    "support": {
+        "source": "https://github.com/Laragear/Capstone",
+        "issues": "https://github.com/Laragear/Capstone/issues"
+    },
+    "require": {
+        "php": "^8.2",
+        "illuminate/database": "11.*|12.*",
+        "illuminate/support": "11.*|12.*"
+    },
+    "require-dev": {
+        "orchestra/testbench": "9.*|10.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Laragear\\Capstone\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit --coverage-clover build/logs/clover.xml",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Laragear\\Capstone\\CapstoneServiceProvider"
+            ]
+        }
+    },
+    "funding": [
+        {
+            "type": "Github Sponsorship",
+            "url": "https://github.com/sponsors/DarkGhostHunter"
+        },
+        {
+            "type": "Paypal",
+            "url": "https://paypal.me/darkghosthunter"
+        }
+    ]
+}
