@@ -10,6 +10,7 @@ use Laragear\Capstone\Keep;
 use Mockery;
 use Mockery\MockInterface;
 use PHPUnit\Framework\TestCase;
+use RuntimeException;
 use function now;
 
 class KeepTest extends TestCase
@@ -50,6 +51,17 @@ class KeepTest extends TestCase
     protected function keep(): Keep
     {
         return new Keep($this->model);
+    }
+
+    public function test_throws_when_no_filter_set(): void
+    {
+        $this->builderClone->expects('delete')->never();
+        $this->model->expects('getKeyName')->andReturn('id');
+
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('There are no columns set to keep the models in the table.');
+
+        $this->keep()->performDeletion();
     }
 
     public function test_limits_by_five_by_default(): void
