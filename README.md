@@ -1,5 +1,5 @@
 # Capstone
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/laragear/{project}.svg)](https://packagist.org/packages/laragear/{project})
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/laragear/capstone.svg)](https://packagist.org/packages/laragear/capstone)
 [![Latest stable test run](https://github.com/Laragear/Capstone/actions/workflows/php.yml/badge.svg)](https://github.com/Laragear/Capstone/actions/workflows/php.yml)
 [![Codecov Coverage](https://codecov.io/gh/Laragear/Capstone/graph/badge.svg?token=C9Cc6XOxXE)](https://codecov.io/gh/Laragear/Capstone)
 [![Maintainability](https://qlty.sh/badges/42c707d7-ce2e-4726-a1be-29ea151de711/maintainability.svg)](https://qlty.sh/gh/Laragear/projects/Capstone)
