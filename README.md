@@ -52,7 +52,7 @@ composer require laragear/capstone
 
 This library can limit how many models can be persisted in a table. The only requisite is a primary key, and that these models share a particular column value.
 
-For example, imagine a `Post` model having `Drafts`. To limit the amount of drafts created, this library does it automatically using the `Laragear\Capstone\HasCap` trait. By default, it uses a limit of 5. It only requires a column to group the drafts to keep.
+For example, imagine a `Post` model having `Drafts`. To limit the amount of drafts present in the database for that post, this library does it automatically using the `Laragear\Capstone\HasCap` trait. By default, it uses a limit of 5. It only requires a column to group the drafts to keep, which would be `post_id`.
 
 ## Set up
 
@@ -100,7 +100,7 @@ public function keep(Keep $keep)
 }
 ``` 
 
-Alternatively, you may use a callback that modifies the query to group the records to limit. The callback should receive the `Illuminate\Database\Eloquent\Builder` instance.
+Alternatively, you may use a callback that modifies the query to group the records to limit. The callback receives the `Illuminate\Database\Eloquent\Builder` instance you can adjust to your liking.
 
 ```php
 use Laragear\Capstone\Keep;
@@ -118,11 +118,11 @@ public function keep(Keep $keep)
 
 > [!IMPORTANT]
 > 
-> The query is using only to group the records to keep and delete, not to [apply limits](#amount-limit).
+> The query is using only to group the records that will be kept or deleted, not to [apply limits](#amount-limit).
 
 ### Amount limit
 
-By default, the records are limited by 5. Each time a new record is inserted into the database, the oldest is deleted. You may change the amount using the `by()` method.
+By default, the records are limited by 5. Each time a new record is inserted into the database, the oldest ([by their primary key](#ordering)) is deleted. You may change the amount using the `by()` method.
 
 ```php
 use Laragear\Capstone\Keep;
@@ -133,10 +133,10 @@ public function keep(Keep $keep)
 }
 ```
 
-You also disable the limit by setting it to `0` (zero) or using `all()`.
+You also disable the limit by setting it to `0` (zero) or using `all()`. In that case, you should complement this with a [time limit](#time-limit).
 
 ```php
-$keep->same('post_id')->all();
+$keep->same('post_id')->all()->after('-14 days');
 ```
 
 > [!TIP]
@@ -156,7 +156,7 @@ public function keep(Keep $keep)
 }
 ```
 
-By default, it uses the model "created at" column to pick which records should be kept. You may change the column name using a second parameter.
+By default, it uses the model creation timestamp to pick which records should be kept. You may use a different column by setting its name a second parameter.
 
 ```php
 $keep->same('post_id')->after(now()->subMonth(), 'updated_at');
@@ -179,15 +179,19 @@ public function keep(Keep $keep)
 }
 ```
 
-Both methods also accepts the column to sort the records if these don't have a creation timestamp, or you need to sort them using another column.
+Both methods also accept the column to sort the records if these don't have a creation timestamp, or you need to sort them using another column.
 
 ```php
 $cap->same('post_id')->latest('saved_at');
+
+
+$cap->same('post_id')->oldest('published_at');
+
 ```
 
 ### Force delete
 
-Records that are not kept will be removed using the `delete()` method. If your model uses [soft deletes](https://laravel.com/docs/12.x/eloquent#soft-deleting), you may remove it completely from the databases using `forceDeleting()` method.
+Records that are not kept will be removed using the [`delete()` query method](https://laravel.com/docs/12.x/eloquent#deleting-models-using-queries). If your model uses [soft deletes](https://laravel.com/docs/12.x/eloquent#soft-deleting), you may remove it completely from the databases using `forceDelete()` method.
 
 ```php
 use Laragear\Capstone\Keep;
@@ -198,7 +202,7 @@ public function keep(Keep $keep)
 }
 ```
 
-You may also use the `forceDelete()` with a callback that receives the model and returns the result of the condition.
+In case you require to issue a condition for force deletion, you can use a variable that evaluates to _true_ or _false_, or a callback that receives the model and returns the result of the condition.
 
 ```php
 $keep->same('post_id')->forceDelete(fn ($draft) => $draft->author->isNotVip());
