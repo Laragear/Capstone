@@ -37,8 +37,8 @@ Your support allows me to keep this package free, up-to-date and maintainable.
 
 ## Requirements
 
-* PHP 8.2
-* Laravel 11 or later
+* PHP 8.3
+* Laravel 12 or later
 
 ## Installation
 
@@ -232,10 +232,10 @@ There should be no problems using this package with Laravel Octane.
 
 ## Security
 
-If you discover any security related issues, issue a [Security Advisor](https://github.com/Laragear/Capstone/security/advisories/new)
+If you discover any security-related issues, issue a [Security Advisor](https://github.com/Laragear/Capstone/security/advisories/new)
 
 # License
 
-This specific package version is licensed under the terms of the [MIT License](LICENSE.md), at time of publishing.
+This specific package version is licensed under the terms of the [MIT License](LICENSE.md), at the time of publishing.
 
-[Laravel](https://laravel.com) is a Trademark of [Taylor Otwell](https://github.com/TaylorOtwell/). Copyright © 2011-2025 Laravel LLC.
+[Laravel](https://laravel.com) is a Trademark of [Taylor Otwell](https://github.com/TaylorOtwell/). Copyright © 2011–2026 Laravel LLC.
